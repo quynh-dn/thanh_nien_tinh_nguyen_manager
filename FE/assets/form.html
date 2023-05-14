@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='bootstrap.min.css'>
+    <link rel='stylesheet' href='formio.full.min.css'>
+    <script src='formio.full.min.js'></script>
+    <script type='text/javascript'>
+      let formioOptions = {
+        builder: {
+          basic: false,
+          advanced: false,
+          data: false,
+          customBasic: {
+            title: 'Basic Components',
+            default: true,
+            weight: 0,
+            components: {
+              textfield: true,
+              // password: true,
+              // number: true,
+              textarea: true,
+              radio: true,
+              checkbox: true,
+              button: true,
+              selectboxes: true,
+              select: true
+            }
+          },
+          custom: {
+            title: 'Thành phần riêng',
+            weight: 10,
+            components: {
+              firstName: {
+                title: 'First Name',
+                key: 'firstName',
+                icon: 'terminal',
+                schema: {
+                  label: 'First Name',
+                  type: 'textfield',
+                  key: 'firstName',
+                  input: true
+                }
+              },
+              lastName: {
+                title: 'Last Name',
+                key: 'lastName',
+                icon: 'terminal',
+                schema: {
+                  label: 'Last Name',
+                  type: 'textfield',
+                  key: 'lastName',
+                  input: true
+                }
+              },
+              email: {
+                title: 'Email',
+                key: 'email',
+                icon: 'at',
+                schema: {
+                  label: 'Email',
+                  type: 'email',
+                  key: 'email',
+                  input: true
+                }
+              },
+              password: {
+                title: 'Password',
+                key: 'password',
+                icon: 'terminal',
+                schema: {
+                  label: 'Password',
+                  type: 'password',
+                  key: 'password',
+                  input: true
+                }
+              },
+              phoneNumber: {
+                title: 'Mobile Phone',
+                key: 'mobilePhone',
+                icon: 'phone-square',
+                schema: {
+                  label: 'Mobile Phone',
+                  type: 'phoneNumber',
+                  key: 'mobilePhone',
+                  input: true
+                }
+              },
+              numberOnly: {
+                title: 'Number',
+                key: 'numberOnly',
+                icon: 'fa fa-dot-circle-o',
+                schema: {
+                  label: 'Number',
+                  type: 'number',
+                  key: 'numberOnly',
+                  input: true
+                }
+              }
+            }
+          },
+          layout: {
+            components: {
+              table: true
+            }
+          }
+        },
+        editForm: {
+          textfield: [
+            {
+              key: 'api',
+              ignore: true
+            }        
+          ]
+        },
+        language: 'vi',
+        i18n: {
+            vi: {
+              'Edit': 'Sửa',
+              'Preview': 'Xem trước',
+              'Save': 'Lưu lại',
+              'Cancel': 'Hủy',
+              'Remove': 'Xóa',
+              'Close': 'Đóng',
+              'Move': 'Di chuyển',
+              'Copy': 'Sao chép',
+              'Submit': 'Gửi',
+
+              // 'Text Field': 'Textfeld',
+              // 'Select Boxes': 'Checkboxen',
+              // 'Select': 'Auswahl',
+              //'Header': 'Überschrift',
+
+              'Component': 'Thành phần',
+              'Conditional': 'Điều kiện',
+              'Display': 'Hiển thị',
+              'Label': 'Tên nhãn',
+              'Label Position': 'Vị trí nhãn',
+              'Search field(s)': 'Tìm kiếm',
+              'Basic Components': 'Thành phần chung',
+              'Layout': 'Bố cục',
+              'Premium': 'Nâng cao',
+              'Loading...': 'Đang xử lý...',
+              'Description': 'Mô tả',
+              'Data': 'Dữ liệu',
+              'Default Value': 'Giá trị mặc định',
+              'Required': 'Bắt buộc',
+              'Minimum Length': 'Độ dài nhỏ nhất',
+              'Maximum Length': 'Độ dài lớn nhất',
+
+              'Key': 'Khóa',
+              'Value': 'Giá trị',
+              // 'True': 'Wahr',
+              // 'False': 'Falsch',
+              'Simple': 'Einfach',
+              'Drag and Drop a form component': 'Kéo thả thành phần vào form',
+              'This component should Display:': 'Komponente anzeigen:',
+              'When the form component:': 'wenn die Komponente:',
+              'Has the value:': 'den folgenden Wert hat:',
+            }
+          }
+      };
+
+      let schema = {
+        components: [
+            {
+              type: "textfield",
+              label: "Họ tên",
+              description: "",
+              placeholder: "Nhập họ tên bệnh nhân",
+              key: "namePatient",
+              input: true,
+              inputType: "text",
+              keyModified: false,
+              autofocus: true,
+              protected: true,
+              validate: {
+                "required": true,
+                "minLength": "2",
+                "maxLength": "100"
+              }
+            },
+            {
+              type: "textfield",
+              label: "Mã bệnh nhân",
+              description: "",
+              placeholder: "Nhập mã bệnh nhân",
+              key: "codePatient",
+              input: true,
+              inputType: "text",
+              validate: {
+                "required": true,
+                "minLength": "6",
+                "maxLength": "100"
+              }
+            },
+            {
+              type: 'button',
+              action: 'submit',
+              label: 'Submit',
+              theme: 'primary'
+            }
+        ]
+      };
+
+      let components = {
+        components: [
+          {
+          "legend": "Tạo biểu mẫu",
+          "key": "formHeader",
+          "type": "fieldset",
+          "label": "Tạo biểu mẫu",
+          "input": false,
+          "components": schema.components,
+          }
+          // ,{
+          //   "legend": "Body",
+          //   "key": "body",
+          //   "type": "fieldset",
+          //   "label": "Body",
+          //   "input": false,
+          //   "components": []
+          // },
+          // {
+          //   "legend": "Footer",
+          //   "key": "footer",
+          //   "type": "fieldset",
+          //   "label": "Footer",
+          //   "input": false,
+          //   "components": [ ]
+          // }
+      ]
+    };
+
+      // let builderOptions = _.merge({}, formioOptions, {
+      //   noDefaultSubmitButton: true
+      // });
+
+      // var form;
+      // var formTemplateToSave;
+      
+    </script>
+  </head>
+  <body>
+    <div id='builder'></div>
+    <div id='submission'></div>
+  </body>
+  <script>
+    window.onload = function() {
+        Formio.builder(document.getElementById('builder'), components, formioOptions)
+        .then(function(form){
+          form.on("change", function(e){
+              console.log("Something changed on the form builder");
+              var jsonSchema = JSON.stringify(form.schema, null, 4);
+              console.log(jsonSchema); // this is the json schema of form components
+              document.getElementById('submission').innerHTML='';
+              document.getElementById('submission').appendChild(document.createTextNode(JSON.stringify(form.schema, null, 4)));
+          });
+          form.on('submit', function (submission) {
+              document.getElementById('submission').innerHTML='';
+              document.getElementById('submission').appendChild(document.createTextNode("dfgdfgdf49"));
+          });
+          form.on('error', (errors) => {
+              //Error Code
+          })
+          form.on("render", function () {
+              //Any Render Overrides?
+          })
+        });
+      };
+  </script>
+</html>
